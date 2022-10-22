@@ -101,18 +101,16 @@ export const calculatePerMonth = (dataSale: any[], dataPurchased: any[]) => {
   /*Refatorar logica para melhor junção dos dois dados */
   const dataPerMonths = separatePerMonth(dataSale, dataPurchased);
 
-  const dataTest: { [index: string]: IStatiticsPerMonth } = Object.entries(
-    dataPerMonths
-  )
+  const dataTest = Object.entries(dataPerMonths)
     .filter(([key, value]) => value.saled.length > 0)
     .map(([key, value], index) => {
       return [key, calculateTotalPerMonth(value.saled, value.purchased)];
-    })
-    .reduce((acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    }, {});
+    });
+  // .reduce((acc, [key, value]):Object => {
+  //   acc[key] = value;
+  //   return acc;
+  // }, {});
   // console.log("teste", dataPerMonths);
   // console.log(dataTest);
-  return dataTest;
+  return Object.fromEntries(dataTest);
 };

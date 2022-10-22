@@ -89,13 +89,13 @@ const calculatePerMonth = (dataSale, dataPurchased) => {
         .filter(([key, value]) => value.saled.length > 0)
         .map(([key, value], index) => {
         return [key, calculateTotalPerMonth(value.saled, value.purchased)];
-    })
-        .reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-    }, {});
+    });
+    // .reduce((acc, [key, value]):Object => {
+    //   acc[key] = value;
+    //   return acc;
+    // }, {});
     // console.log("teste", dataPerMonths);
     // console.log(dataTest);
-    return dataTest;
+    return Object.fromEntries(dataTest);
 };
 exports.calculatePerMonth = calculatePerMonth;
