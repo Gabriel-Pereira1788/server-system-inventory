@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(morganMiddleware);
 app.use(express.json());
-app.use("/api", router);
+app.use("/", router);
 
 const port = config.get<number>("port");
 

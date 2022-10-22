@@ -23,7 +23,7 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(morganMiddleware_1.default);
 app.use(express_1.default.json());
-app.use("/api", router_1.default);
+app.use("/", router_1.default);
 const port = config_1.default.get("port");
 app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, db_1.default)();
