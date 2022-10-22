@@ -1,14 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {
-  collection,
-  getDocs,
-  where,
-  query,
-  addDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
-import { db } from "../firebase/firebase";
+
 import { IDataPurchased } from "../types/IDataPurchased";
 import { Notification } from "../entities/notification";
 import { ProductModel } from "../models/Products";

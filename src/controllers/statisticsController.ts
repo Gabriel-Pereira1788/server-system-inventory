@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+
 import { ProductModel } from "../models/Products";
 import { PurchaseModel } from "../models/Purchases";
 import { SaleModel } from "../models/Sales";

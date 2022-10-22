@@ -1,7 +1,7 @@
 import { uuid } from "uuidv4";
 
 export class Purchase {
-  id: string;
+  id?: string;
   id_product?: string;
   id_user?: string;
   pieces_purchased?: number;
