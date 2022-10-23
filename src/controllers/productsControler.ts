@@ -25,7 +25,6 @@ export async function getProductsByUser(req: Request, res: Response) {
           id_product: product.id_product,
         });
 
-        console.log(purchasesProduct);
         const dataMonth = calculatePerMonth(salesProduct, purchasesProduct);
         const relevantStatistics = getRelevantStatistics(dataMonth);
         return { relevantStatistics, product };
@@ -47,12 +46,14 @@ export async function createProduct(req: Request, res: Response) {
     const purchasedData = {
       storage,
       id_user,
-      id_product: id_product,
+      id_product: productData.id_product,
       price_purchased,
       price_saled,
       pieces_purchased: storage,
     };
+    console.log(purchasedData);
     await ProductModel.create(productData);
+
     await PurchaseModel.create(purchasedData);
     return res.status(200).json({ message: "Produto criado com sucesso." });
   } catch (error) {
@@ -95,7 +96,6 @@ export async function editProduct(req: Request, res: Response) {
 export async function purchasedProduct(req: Request, res: Response) {
   try {
     const data = req.body;
-    console.log("data req", data);
     const purchasedData = new Purchase(data);
     console.log(purchasedData);
     await PurchaseModel.create(purchasedData);

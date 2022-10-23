@@ -32,7 +32,6 @@ function getProductsByUser(req, res) {
                     id_user: idUser,
                     id_product: product.id_product,
                 });
-                console.log(purchasesProduct);
                 const dataMonth = (0, calculatePerMonth_1.calculatePerMonth)(salesProduct, purchasesProduct);
                 const relevantStatistics = (0, relevantStatistics_1.getRelevantStatistics)(dataMonth);
                 return { relevantStatistics, product };
@@ -55,11 +54,12 @@ function createProduct(req, res) {
             const purchasedData = {
                 storage,
                 id_user,
-                id_product: id_product,
+                id_product: productData.id_product,
                 price_purchased,
                 price_saled,
                 pieces_purchased: storage,
             };
+            console.log(purchasedData);
             yield Products_1.ProductModel.create(productData);
             yield Purchases_1.PurchaseModel.create(purchasedData);
             return res.status(200).json({ message: "Produto criado com sucesso." });
@@ -108,7 +108,6 @@ function purchasedProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const data = req.body;
-            console.log("data req", data);
             const purchasedData = new purchase_1.Purchase(data);
             console.log(purchasedData);
             yield Purchases_1.PurchaseModel.create(purchasedData);
