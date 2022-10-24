@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const express_1 = __importDefault(require("express"));
-const config_1 = __importDefault(require("config"));
 const cors_1 = __importDefault(require("cors"));
 const router_1 = __importDefault(require("./routes/router"));
 const morganMiddleware_1 = __importDefault(require("./middlewares/morganMiddleware"));
@@ -24,8 +23,8 @@ app.use((0, cors_1.default)());
 app.use(morganMiddleware_1.default);
 app.use(express_1.default.json());
 app.use("/", router_1.default);
-const port = process.env.PORT || config_1.default.get("port");
-app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, db_1.default)();
-    console.log("Aplicação funcionando na porta:" + port);
+    console.log("Aplicação funcionando na porta:" + PORT);
 }));

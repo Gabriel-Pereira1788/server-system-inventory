@@ -12,10 +12,10 @@ app.use(morganMiddleware);
 app.use(express.json());
 app.use("/", router);
 
-const port = process.env.PORT || config.get<number>("port");
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, async () => {
+app.listen(PORT, async () => {
   await db();
 
-  console.log("Aplicação funcionando na porta:" + port);
+  console.log("Aplicação funcionando na porta:" + PORT);
 });
