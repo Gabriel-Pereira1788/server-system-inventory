@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "server-inventory",
+  "builds": [{ "src": "build/src/app.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "build/(.*)", "dest": "build/src/app.js" }]
+}
