@@ -12,7 +12,7 @@ app.use(morganMiddleware);
 app.use(express.json());
 app.use("/", router);
 
-const port = config.get<number>("port");
+const port = process.env.PORT || config.get<number>("port");
 
 app.listen(port, async () => {
   await db();
