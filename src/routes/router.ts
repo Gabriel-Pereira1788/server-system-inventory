@@ -27,6 +27,6 @@ export default router
   .post("/purchased-product", purchasedProduct)
   .post("/saled-product", saledProduct)
   .get("/get-statistics/:id", getStatistics)
-  .get("/get-notifications/:id", getNotifications)
+  .get("/get-notifications/:id?filter", getNotifications)
   .post("/create-notification", createNotification)
   .get("/read-notification/:id", readNotification);
