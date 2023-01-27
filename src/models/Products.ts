@@ -9,6 +9,7 @@ const productSchema = new Schema(
     price_purchased: { type: Number },
     price_saled: { type: Number },
     storage: { type: Number },
+    category: { type: String },
   },
   {
     timestamps: true,

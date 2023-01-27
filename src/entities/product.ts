@@ -7,6 +7,7 @@ export class Product {
   price_purchased?: number;
   price_saled?: number;
   storage?: number;
+  category?: string;
   constructor(props: Omit<Product, "id_product">, id_product?: string) {
     Object.assign(this, props);
     if (!id_product) {
