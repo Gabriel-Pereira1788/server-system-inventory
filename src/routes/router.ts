@@ -20,7 +20,7 @@ export default router
   .get("/test", (req: Request, res: Response) => {
     res.status(200).send("Api Working");
   })
-  .get("/products/:id", getProductsByUser)
+  .get("/products/:id/:category?", getProductsByUser)
   .post("/create-product/", createProduct)
   .delete("/delete-product/:id", deleteProduct)
   .patch("/edit-product/:id", verifyStorage, editProduct)

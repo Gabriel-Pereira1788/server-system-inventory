@@ -11,17 +11,23 @@ import { IProduct } from "../types/IProduct";
 
 export async function getProductsByUser(req: Request, res: Response) {
   try {
-    const idUser = req.params.id;
+    const { id, category } = req.params;
+    let allProducts;
+    if (category !== "todas") {
+      allProducts = await ProductModel.find({
+        id_user: id,
+        category: category,
+      });
+    } else allProducts = await ProductModel.find({ id_user: id });
 
-    const allProducts = await ProductModel.find({ id_user: idUser });
     const dataProduct = await Promise.all(
       allProducts.map(async (product) => {
         const salesProduct = await SaleModel.find({
-          id_user: idUser,
+          id_user: id,
           id_product: product.id_product,
         });
         const purchasesProduct = await PurchaseModel.find({
-          id_user: idUser,
+          id_user: id,
           id_product: product.id_product,
         });
 
@@ -51,8 +57,8 @@ export async function createProduct(req: Request, res: Response) {
       price_saled,
       pieces_purchased: storage,
     };
-    console.log(purchasedData);
-    await ProductModel.create(productData);
+    const responseP = await ProductModel.create(productData);
+    console.log(responseP);
 
     await PurchaseModel.create(purchasedData);
     return res.status(200).json({ message: "Produto criado com sucesso." });
