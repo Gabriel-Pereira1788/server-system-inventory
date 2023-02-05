@@ -8,24 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("config"));
-function connect() {
+exports.getBestSelling = void 0;
+const Products_1 = require("../models/Products");
+function getBestSelling(dataSales) {
     return __awaiter(this, void 0, void 0, function* () {
-        const dbUri = config_1.default.get("dbUri");
-        try {
-            yield mongoose_1.default.connect(dbUri);
-            console.log("Conectou ao banco de dados");
-        }
-        catch (err) {
-            console.log("Não foi possivel concectar");
-            console.log(`Error:${err}`);
-            process.exit(1);
-        }
+        const maxSaled = Math.max(...dataSales.map((day) => day.pieces_saled));
+        const sale = dataSales.find((day) => day.pieces_saled === maxSaled);
+        const product = sale
+            ? yield Products_1.ProductModel.findOne({
+                id_product: sale.id_product,
+            })
+            : null;
+        return {
+            product,
+            data_sale: sale ? sale : null,
+        };
     });
 }
-exports.default = connect;
+exports.getBestSelling = getBestSelling;

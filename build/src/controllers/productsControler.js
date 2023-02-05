@@ -21,15 +21,24 @@ const relevantStatistics_1 = require("../modules/relevantStatistics");
 function getProductsByUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const idUser = req.params.id;
-            const allProducts = yield Products_1.ProductModel.find({ id_user: idUser });
+            const { id, category } = req.params;
+            console.log(category);
+            let allProducts;
+            if (category !== "todas") {
+                allProducts = yield Products_1.ProductModel.find({
+                    id_user: id,
+                    category: category,
+                });
+            }
+            else
+                allProducts = yield Products_1.ProductModel.find({ id_user: id });
             const dataProduct = yield Promise.all(allProducts.map((product) => __awaiter(this, void 0, void 0, function* () {
                 const salesProduct = yield Sales_1.SaleModel.find({
-                    id_user: idUser,
+                    id_user: id,
                     id_product: product.id_product,
                 });
                 const purchasesProduct = yield Purchases_1.PurchaseModel.find({
-                    id_user: idUser,
+                    id_user: id,
                     id_product: product.id_product,
                 });
                 const dataMonth = (0, calculatePerMonth_1.calculatePerMonth)(salesProduct, purchasesProduct);
@@ -59,8 +68,8 @@ function createProduct(req, res) {
                 price_saled,
                 pieces_purchased: storage,
             };
-            console.log(purchasedData);
-            yield Products_1.ProductModel.create(productData);
+            const responseP = yield Products_1.ProductModel.create(productData);
+            console.log(responseP);
             yield Purchases_1.PurchaseModel.create(purchasedData);
             return res.status(200).json({ message: "Produto criado com sucesso." });
         }

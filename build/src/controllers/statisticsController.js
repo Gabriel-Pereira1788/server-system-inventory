@@ -13,6 +13,7 @@ exports.getStatistics = void 0;
 const Products_1 = require("../models/Products");
 const Purchases_1 = require("../models/Purchases");
 const Sales_1 = require("../models/Sales");
+const calculateByFilter_1 = require("../modules/calculateByFilter");
 const calculatePerMonth_1 = require("../modules/calculatePerMonth");
 const calculateTotal_1 = require("../modules/calculateTotal");
 const relevantStatistics_1 = require("../modules/relevantStatistics");
@@ -20,6 +21,11 @@ function getStatistics(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const idUser = req.params.id;
+            const { filter } = req.query;
+            if (filter) {
+                return getStatisticsByFilter(idUser, filter, res);
+            }
+            console.log(req);
             const allProducts = yield Products_1.ProductModel.find({ id_user: idUser });
             const allSales = yield Sales_1.SaleModel.find({ id_user: idUser });
             const allPurchases = yield Purchases_1.PurchaseModel.find({ id_user: idUser });
@@ -35,3 +41,20 @@ function getStatistics(req, res) {
     });
 }
 exports.getStatistics = getStatistics;
+function getStatisticsByFilter(idUser, filter, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(filter);
+            const allProducts = yield Products_1.ProductModel.find({ id_user: idUser });
+            const allSales = yield Sales_1.SaleModel.find({ id_user: idUser });
+            const allPurchases = yield Purchases_1.PurchaseModel.find({ id_user: idUser });
+            const statisticsByFilter = yield (0, calculateByFilter_1.calculateByFilter)(filter, allSales, allPurchases);
+            console.log(statisticsByFilter);
+            return res.status(200).json({ statisticsByFilter });
+        }
+        catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "Erro no servidor" });
+        }
+    });
+}
