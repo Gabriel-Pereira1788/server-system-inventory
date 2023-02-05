@@ -12,6 +12,7 @@ import { IProduct } from "../types/IProduct";
 export async function getProductsByUser(req: Request, res: Response) {
   try {
     const { id, category } = req.params;
+    console.log(category);
     let allProducts;
     if (category !== "todas") {
       allProducts = await ProductModel.find({
