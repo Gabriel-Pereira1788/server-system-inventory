@@ -43,7 +43,7 @@ function getProductsByUser(req, res) {
                 });
                 const dataMonth = (0, calculatePerMonth_1.calculatePerMonth)(salesProduct, purchasesProduct);
                 const relevantStatistics = (0, relevantStatistics_1.getRelevantStatistics)(dataMonth);
-                return { relevantStatistics, product };
+                return { relevantStatistics, product, dataMonth };
             })));
             res.status(200).send({ dataProduct });
         }

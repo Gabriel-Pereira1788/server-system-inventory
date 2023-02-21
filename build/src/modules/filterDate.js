@@ -5,7 +5,7 @@ function createIntervalTime(interval, typeInterval) {
     const currentDate = new Date();
     // console.log(currentDate.getMonth());
     if (typeInterval === "day") {
-        currentDate.setDate(currentDate.getDate() - 1);
+        currentDate.setDate(currentDate.getDate());
         return [
             `${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDate()}`,
         ];
@@ -49,6 +49,7 @@ function filterDate(data, filter) {
         const normalizedDateItem = interval.method === "getDate"
             ? `${dateItem.getFullYear()}-${dateItem.getMonth()}-${dateItem.getDate()}`
             : `${dateItem.getFullYear()}-${dateItem.getMonth()}`;
+        console.log(normalizedDateItem);
         return interval.intervalTime.includes(normalizedDateItem);
     });
     return dataFiltered;
