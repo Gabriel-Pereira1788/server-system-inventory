@@ -45,6 +45,21 @@ export async function getProductsByUser(req: Request, res: Response) {
   }
 }
 
+export async function getProductById(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    const product = await ProductModel.find({
+      id_product: id,
+    });
+
+    res.status(200).send({ product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Error" });
+  }
+}
+
 export async function createProduct(req: Request, res: Response) {
   try {
     const data: IProduct = req.body;

@@ -51,7 +51,14 @@ async function getStatisticsByFilter(
 
     console.log(statisticsByFilter);
 
-    return res.status(200).json({ statisticsByFilter });
+    return res.status(200).json({
+      ...statisticsByFilter,
+      total_product: allProducts.length,
+      total_storage: allProducts.reduce(
+        (acc, product) => (acc += product.storage ? product.storage : 0),
+        0
+      ),
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Erro no servidor" });
