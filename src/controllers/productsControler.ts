@@ -34,7 +34,15 @@ export async function getProductsByUser(req: Request, res: Response) {
 
         const dataMonth = calculatePerMonth(salesProduct, purchasesProduct);
         const relevantStatistics = getRelevantStatistics(dataMonth);
-        return { relevantStatistics, product, dataMonth };
+        return {
+          relevantStatistics,
+          total_pieces_sales: salesProduct.reduce(
+            (acc, sale) => (acc += sale.pieces_saled!),
+            0
+          ),
+          product,
+          dataMonth,
+        };
       })
     );
 
