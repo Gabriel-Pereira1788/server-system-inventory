@@ -50,7 +50,7 @@ function getStatisticsByFilter(idUser, filter, res) {
             const allPurchases = yield Purchases_1.PurchaseModel.find({ id_user: idUser });
             const statisticsByFilter = yield (0, calculateByFilter_1.calculateByFilter)(filter, allSales, allPurchases);
             console.log(statisticsByFilter);
-            return res.status(200).json({ statisticsByFilter });
+            return res.status(200).json(Object.assign(Object.assign({}, statisticsByFilter), { total_product: allProducts.length, total_storage: allProducts.reduce((acc, product) => (acc += product.storage ? product.storage : 0), 0) }));
         }
         catch (error) {
             console.log(error);

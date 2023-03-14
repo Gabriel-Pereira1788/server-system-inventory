@@ -11,12 +11,13 @@ exports.default = router
     res.status(200).send("Api Working");
 })
     .get("/products/:id/:category?", productsControler_1.getProductsByUser)
+    .get("/single-product/:id", productsControler_1.getProductById)
     .post("/create-product/", productsControler_1.createProduct)
     .delete("/delete-product/:id", productsControler_1.deleteProduct)
     .patch("/edit-product/:id", verifyStorage_1.verifyStorage, productsControler_1.editProduct)
     .post("/purchased-product", productsControler_1.purchasedProduct)
     .post("/saled-product", productsControler_1.saledProduct)
     .get("/get-statistics/:id", statisticsController_1.getStatistics)
-    .get("/get-notifications/:id?filter", notificationsController_1.getNotifications)
+    .get("/get-notifications/:id?", notificationsController_1.getNotifications)
     .post("/create-notification", notificationsController_1.createNotification)
     .get("/read-notification/:id", notificationsController_1.readNotification);

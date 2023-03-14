@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saledProduct = exports.purchasedProduct = exports.editProduct = exports.deleteProduct = exports.createProduct = exports.getProductsByUser = void 0;
+exports.saledProduct = exports.purchasedProduct = exports.editProduct = exports.deleteProduct = exports.createProduct = exports.getProductById = exports.getProductsByUser = void 0;
 const product_1 = require("../entities/product");
 const purchase_1 = require("../entities/purchase");
 const sale_1 = require("../entities/sale");
@@ -43,7 +43,12 @@ function getProductsByUser(req, res) {
                 });
                 const dataMonth = (0, calculatePerMonth_1.calculatePerMonth)(salesProduct, purchasesProduct);
                 const relevantStatistics = (0, relevantStatistics_1.getRelevantStatistics)(dataMonth);
-                return { relevantStatistics, product, dataMonth };
+                return {
+                    relevantStatistics,
+                    total_pieces_sales: salesProduct.reduce((acc, sale) => (acc += sale.pieces_saled), 0),
+                    product,
+                    dataMonth,
+                };
             })));
             res.status(200).send({ dataProduct });
         }
@@ -54,6 +59,22 @@ function getProductsByUser(req, res) {
     });
 }
 exports.getProductsByUser = getProductsByUser;
+function getProductById(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const product = yield Products_1.ProductModel.find({
+                id_product: id,
+            });
+            res.status(200).send({ product });
+        }
+        catch (error) {
+            console.log(error);
+            res.status(500).send({ message: "Error" });
+        }
+    });
+}
+exports.getProductById = getProductById;
 function createProduct(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
