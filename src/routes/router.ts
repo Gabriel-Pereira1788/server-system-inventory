@@ -28,7 +28,7 @@ export default router
   .patch("/edit-product/:id", verifyStorage, editProduct)
   .post("/purchased-product", purchasedProduct)
   .post("/saled-product", saledProduct)
-  .get("/get-statistics/:id", getStatistics)
+  .get("/get-statistics/:id/:filter?", getStatistics)
   .get("/get-notifications/:id?", getNotifications)
   .post("/create-notification", createNotification)
   .get("/read-notification/:id", readNotification);

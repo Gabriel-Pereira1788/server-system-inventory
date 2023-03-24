@@ -10,6 +10,7 @@ const productSchema = new Schema(
     price_saled: { type: Number },
     storage: { type: Number },
     category: { type: String },
+    path_image: { type: String },
   },
   {
     timestamps: true,
