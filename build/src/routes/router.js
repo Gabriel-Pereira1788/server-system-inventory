@@ -17,7 +17,7 @@ exports.default = router
     .patch("/edit-product/:id", verifyStorage_1.verifyStorage, productsControler_1.editProduct)
     .post("/purchased-product", productsControler_1.purchasedProduct)
     .post("/saled-product", productsControler_1.saledProduct)
-    .get("/get-statistics/:id", statisticsController_1.getStatistics)
+    .get("/get-statistics/:id/:filter?", statisticsController_1.getStatistics)
     .get("/get-notifications/:id?", notificationsController_1.getNotifications)
     .post("/create-notification", notificationsController_1.createNotification)
     .get("/read-notification/:id", notificationsController_1.readNotification);
